@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".PasswordActivity"
+            android:name=".screen.PasswordActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,11 +17,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ListActivity" />
+        <activity android:name=".screen.list.ListActivity" />
 
         <activity
-            android:name=".NoteActivity"
-            android:label="@string/title_activity_note"/>
+            android:name=".screen.note.NoteActivity"
+            android:label="@string/title_activity_note">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".screen.list.ListActivity" />
+        </activity>
 
     </application>
 

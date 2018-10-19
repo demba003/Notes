@@ -1,4 +1,4 @@
-package pl.kamil.notes;
+package pl.kamil.notes.screen;
 
 import android.content.Context;
 import android.content.SharedPreferences;

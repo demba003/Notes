@@ -1,13 +1,16 @@
-package pl.kamil.notes;
+package pl.kamil.notes.screen;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import pl.kamil.notes.R;
+import pl.kamil.notes.screen.list.ListActivity;
+import pl.kamil.notes.screen.note.NoteActivity;
 
 public class PasswordActivity extends AppCompatActivity {
 
@@ -58,6 +61,6 @@ public class PasswordActivity extends AppCompatActivity {
     }
 
     private void startApp() {
-        startActivity(new Intent(this, NoteActivity.class));
+        startActivity(new Intent(this, ListActivity.class));
     }
 }
