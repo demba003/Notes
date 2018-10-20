@@ -13,12 +13,11 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".screen.list.ListActivity" />
-
         <activity
             android:name=".screen.note.NoteActivity"
             android:label="@string/title_activity_note">
@@ -27,6 +26,10 @@
                 android:value=".screen.list.ListActivity" />
         </activity>
 
+        <receiver
+            android:name=".screen.note.ShutdownReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

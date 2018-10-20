@@ -1,5 +1,8 @@
 package pl.kamil.notes.screen.note;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -16,7 +19,8 @@ public class NoteActivity extends AppCompatActivity {
 
     NoteEntity note = new NoteEntity();
     NoteEntity original = new NoteEntity();
-
+    BroadcastReceiver receiver;
+;
     NoteEntity getNote() {
         return note;
     }
@@ -32,7 +36,8 @@ public class NoteActivity extends AppCompatActivity {
 
         NoteEntity openedNote = (NoteEntity) getIntent().getSerializableExtra("NOTE_ENTITY");
         if (openedNote != null) {
-            original = note = openedNote;
+            note = openedNote;
+            original = new NoteEntity(note);
             setTitle(R.string.edit_your_note);
         }
 
@@ -40,6 +45,9 @@ public class NoteActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.container, new NoteFragment())
                 .commit();
+
+        receiver = new ShutdownReceiver(note);
+        registerReceiver(receiver, new IntentFilter(Intent.EXTRA_SHUTDOWN_USERSPACE_ONLY));
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -82,8 +90,8 @@ public class NoteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         saveIfChanged();
+        super.onBackPressed();
     }
 
     private void saveIfChanged() {
@@ -93,4 +101,9 @@ public class NoteActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        super.onDestroy();
+    }
 }

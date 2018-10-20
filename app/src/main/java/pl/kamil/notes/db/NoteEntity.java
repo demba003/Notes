@@ -13,6 +13,8 @@ public class NoteEntity implements NoteModel, Serializable {
     private int id;
     private String noteData;
     private long updateTimestamp;
+    private boolean notificationEnabled;
+    private long notificationTimestamp;
 
     @Override
     public int getId() {
@@ -41,6 +43,24 @@ public class NoteEntity implements NoteModel, Serializable {
         this.updateTimestamp = updateTimestamp;
     }
 
+    @Override
+    public long getNotificationTimestamp() {
+        return notificationTimestamp;
+    }
+
+    public void setNotificationTimestamp(long notificationTimestamp) {
+        this.notificationTimestamp = notificationTimestamp;
+    }
+
+    @Override
+    public boolean isNotificationEnabled() {
+        return notificationEnabled;
+    }
+
+    public void setNotificationEnabled(boolean notificationEnabled) {
+        this.notificationEnabled = notificationEnabled;
+    }
+
     public NoteEntity() {}
 
     @Ignore
@@ -63,11 +83,12 @@ public class NoteEntity implements NoteModel, Serializable {
         NoteEntity that = (NoteEntity) o;
         return getId() == that.getId() &&
                 getUpdateTimestamp() == that.getUpdateTimestamp() &&
+                getNotificationTimestamp() == that.getNotificationTimestamp() &&
                 Objects.equals(getNoteData(), that.getNoteData());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNoteData(), getUpdateTimestamp());
+        return Objects.hash(getId(), getNoteData(), getUpdateTimestamp(), getNotificationTimestamp());
     }
 }
