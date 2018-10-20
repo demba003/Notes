@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notatki</string>
+    <string name="password">Hasło</string>
+    <string name="repeat_password">Powtórz hasło</string>
+    <string name="ok">OK</string>
+    <string name="set_password">Ustaw hasło do Notatek</string>
+    <string name="enter_password">Podaj hasło</string>
+    <string name="title_edit">Tworzenie notatki</string>
+    <string name="title_more">Dodatkowe informacje</string>
+    <string name="passwords_not_matching">Hasła nie są takie same</string>
+    <string name="wrong_password">Złe hasło</string>
+    <string name="edit_your_note">Edycja notatki</string>
+    <string name="create_your_note">Tworzenie notatki</string>
+    <string name="notify_me_at">Powiadom mnie o</string>
+    <string name="enable_notification">Włącz powiadomienie</string>
+    <string name="last_edit_time">Data ostatniej edycji</string>
+    <string name="note_reminder">Przypomnienie o notatce</string>
+</resources>

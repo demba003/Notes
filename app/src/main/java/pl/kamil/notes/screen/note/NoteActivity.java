@@ -47,7 +47,7 @@ public class NoteActivity extends AppCompatActivity {
                 .commit();
 
         receiver = new ShutdownReceiver(note);
-        registerReceiver(receiver, new IntentFilter(Intent.EXTRA_SHUTDOWN_USERSPACE_ONLY));
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_SHUTDOWN));
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -92,6 +92,12 @@ public class NoteActivity extends AppCompatActivity {
     public void onBackPressed() {
         saveIfChanged();
         super.onBackPressed();
+    }
+
+    @Override
+    public void onPause() {
+        saveIfChanged();
+        super.onPause();
     }
 
     private void saveIfChanged() {

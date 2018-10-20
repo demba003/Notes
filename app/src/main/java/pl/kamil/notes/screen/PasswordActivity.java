@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import pl.kamil.notes.R;
 import pl.kamil.notes.screen.list.ListActivity;
-import pl.kamil.notes.screen.note.NoteActivity;
+import pl.kamil.notes.utils.Preferences;
 
 public class PasswordActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class PasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
-        setTitle(R.string.set_password);
+        setTitle(R.string.enter_password);
 
         passwordText = findViewById(R.id.passwordText);
         repeatPassword = findViewById(R.id.repeatPassword);
@@ -30,6 +30,7 @@ public class PasswordActivity extends AppCompatActivity {
 
         if (Preferences.getPasswordHash(this).isEmpty()) {
             repeatPassword.setVisibility(View.VISIBLE);
+            setTitle(R.string.set_password);
         }
 
         confirm.setOnClickListener(v -> {

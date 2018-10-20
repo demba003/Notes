@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity(tableName = "notes")
-public class NoteEntity implements NoteModel, Serializable {
+public class NoteEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String noteData;
@@ -16,7 +16,6 @@ public class NoteEntity implements NoteModel, Serializable {
     private boolean notificationEnabled;
     private long notificationTimestamp;
 
-    @Override
     public int getId() {
         return id;
     }
@@ -25,7 +24,6 @@ public class NoteEntity implements NoteModel, Serializable {
         this.id = id;
     }
 
-    @Override
     public String getNoteData() {
         return noteData;
     }
@@ -34,7 +32,6 @@ public class NoteEntity implements NoteModel, Serializable {
         this.noteData = noteData;
     }
 
-    @Override
     public long getUpdateTimestamp() {
         return updateTimestamp;
     }
@@ -43,7 +40,6 @@ public class NoteEntity implements NoteModel, Serializable {
         this.updateTimestamp = updateTimestamp;
     }
 
-    @Override
     public long getNotificationTimestamp() {
         return notificationTimestamp;
     }
@@ -52,7 +48,6 @@ public class NoteEntity implements NoteModel, Serializable {
         this.notificationTimestamp = notificationTimestamp;
     }
 
-    @Override
     public boolean isNotificationEnabled() {
         return notificationEnabled;
     }
@@ -70,7 +65,7 @@ public class NoteEntity implements NoteModel, Serializable {
         this.updateTimestamp = updateTimestamp;
     }
 
-    public NoteEntity(NoteModel note) {
+    public NoteEntity(NoteEntity note) {
         this.id = note.getId();
         this.noteData = note.getNoteData();
         this.updateTimestamp = note.getUpdateTimestamp();

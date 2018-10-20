@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 
 import pl.kamil.notes.R;
+import pl.kamil.notes.db.NoteEntity;
 import pl.kamil.notes.utils.DateUtlis;
 
 public class ExtrasFragment extends Fragment {
@@ -21,6 +23,7 @@ public class ExtrasFragment extends Fragment {
     EditText notificationTime;
     EditText editDate;
     Switch notificationsEnabled;
+    NoteEntity note;
 
     public ExtrasFragment() {
     }
@@ -42,25 +45,49 @@ public class ExtrasFragment extends Fragment {
         editDate = view.findViewById(R.id.editDate);
         notificationsEnabled = view.findViewById(R.id.notificationsEnabled);
 
-        editDate.setText(DateUtlis.getFormattedDate(((NoteActivity)getActivity()).getNote().getUpdateTimestamp()));
-        notificationTime.setText(DateUtlis.getFormattedDate(((NoteActivity)getActivity()).getNote().getNotificationTimestamp()));
-        notificationsEnabled.setChecked(((NoteActivity)getActivity()).getNote().isNotificationEnabled());
+        note = ((NoteActivity) getActivity()).getNote();
 
+
+        if (note.getUpdateTimestamp() != 0) {
+            editDate.setText(DateUtlis.getFormattedDate(note.getUpdateTimestamp()));
+        } else {
+            editDate.setText(DateUtlis.getFormattedDate(System.currentTimeMillis()));
+        }
+
+        if (note.getNotificationTimestamp() != 0) {
+            notificationTime.setText(DateUtlis.getFormattedDate(note.getNotificationTimestamp()));
+        }
+        notificationTime.setEnabled(note.isNotificationEnabled());
         notificationTime.requestFocus();
-        notificationTime.setOnClickListener(v -> {
-            new TimePickerDialog(getContext(), (timePicker, i, i1) -> {
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.HOUR_OF_DAY, i);
-                cal.set(Calendar.MINUTE, i1);
-                long timestamp = cal.getTimeInMillis();
-                ((NoteActivity)getActivity()).getNote().setNotificationTimestamp(timestamp);
-                notificationTime.setText(DateUtlis.getFormattedDate(((NoteActivity)getActivity()).getNote().getNotificationTimestamp()));
-            }, 10, 0, true).show();
-        });
+        notificationTime.setOnClickListener(this::onSelectTimeClicked);
 
+        notificationsEnabled.setChecked(note.isNotificationEnabled());
         notificationsEnabled.setOnCheckedChangeListener((compoundButton, enabled) -> {
-            ((NoteActivity)getActivity()).getNote().setNotificationEnabled(enabled);
+            note.setNotificationEnabled(enabled);
             notificationTime.setEnabled(enabled);
         });
+    }
+
+    private void onSelectTimeClicked(View v) {
+        Calendar cal = Calendar.getInstance();
+        new TimePickerDialog(
+                getContext(),
+                this::onTimeSet,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true
+        ).show();
+    }
+
+    private void onTimeSet(TimePicker timePicker, int hour, int minute) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        long timestamp = cal.getTimeInMillis();
+        note.setNotificationTimestamp(timestamp);
+        notificationTime.setText(DateUtlis.getFormattedDate(timestamp));
+        if(note.isNotificationEnabled()) {
+            NotificationService.scheduleNotification(getContext(), note);
+        }
     }
 }
