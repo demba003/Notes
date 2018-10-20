@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.security.NoSuchAlgorithmException;
+
 import pl.kamil.notes.R;
 import pl.kamil.notes.screen.list.ListActivity;
+import pl.kamil.notes.utils.HashUtils;
 import pl.kamil.notes.utils.Preferences;
 
 public class PasswordActivity extends AppCompatActivity {
@@ -36,8 +39,12 @@ public class PasswordActivity extends AppCompatActivity {
         confirm.setOnClickListener(v -> {
             if (Preferences.getPasswordHash(this).isEmpty()) {
                 if (passwordText.getText().toString().equals(repeatPassword.getText().toString())) {
-                    Preferences.setPassword(this, passwordText.getText().toString());
-                    startApp();
+                    try {
+                        Preferences.setPassword(this, HashUtils.getSHA1Hash(passwordText.getText().toString()));
+                        startApp();
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     Toast.makeText(
 
@@ -47,15 +54,19 @@ public class PasswordActivity extends AppCompatActivity {
                             .show();
                 }
             } else {
-                if (passwordText.getText().toString().equals(Preferences.getPasswordHash(this))) {
-                    startApp();
-                } else {
-                    Toast.makeText(
+                try {
+                    if (HashUtils.getSHA1Hash(passwordText.getText().toString()).equals(Preferences.getPasswordHash(this))) {
+                        startApp();
+                    } else {
+                        Toast.makeText(
 
-                            this,
-                            R.string.wrong_password,
-                            Toast.LENGTH_SHORT)
-                            .show();
+                                this,
+                                R.string.wrong_password,
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
                 }
             }
         });

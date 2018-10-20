@@ -94,12 +94,6 @@ public class NoteActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    public void onPause() {
-        saveIfChanged();
-        super.onPause();
-    }
-
     private void saveIfChanged() {
         if (!note.equals(original)) {
             note.setUpdateTimestamp(System.currentTimeMillis());
