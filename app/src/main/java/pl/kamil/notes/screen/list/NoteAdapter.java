@@ -6,19 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import pl.kamil.notes.R;
 import pl.kamil.notes.db.NoteEntity;
-import pl.kamil.notes.utils.DateUtlis;
+import pl.kamil.notes.utils.DateUtils;
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
-    private Context context;
-    private List<NoteEntity> notes;
-    private OnCardClickListener onClickListener;
+class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
+    private final Context context;
+    private final List<NoteEntity> notes;
+    private final OnCardClickListener onClickListener;
 
     NoteAdapter(Context context, List<NoteEntity> notes, OnCardClickListener onClickListener) {
         this.context = context;
@@ -36,7 +33,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         NoteEntity note = notes.get(position);
-        holder.date.setText(DateUtlis.getFormattedDate(note.getUpdateTimestamp()));
+        holder.date.setText(DateUtils.getFormattedDate(note.getUpdateTimestamp()));
         holder.content.setText(note.getNoteData());
         holder.card.setOnClickListener(view -> onClickListener.onClick(note));
     }

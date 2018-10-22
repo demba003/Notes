@@ -14,12 +14,6 @@ public interface NoteDao {
     List<NoteEntity> loadAllNotes();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<NoteEntity> notes);
-
-    @Query("SELECT * FROM notes WHERE id = :noteId")
-    NoteEntity loadNote(int noteId);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertNote(NoteEntity note);
 
     @Delete

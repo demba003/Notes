@@ -17,9 +17,9 @@ import pl.kamil.notes.utils.Preferences;
 
 public class PasswordActivity extends AppCompatActivity {
 
-    EditText passwordText;
-    EditText repeatPassword;
-    Button confirm;
+    private EditText passwordText;
+    private EditText repeatPassword;
+    private Button confirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +31,13 @@ public class PasswordActivity extends AppCompatActivity {
         repeatPassword = findViewById(R.id.repeatPassword);
         confirm = findViewById(R.id.confirm);
 
-        if (Preferences.getPasswordHash(this).isEmpty()) {
+        if (Preferences.getPassword(this).isEmpty()) {
             repeatPassword.setVisibility(View.VISIBLE);
             setTitle(R.string.set_password);
         }
 
         confirm.setOnClickListener(v -> {
-            if (Preferences.getPasswordHash(this).isEmpty()) {
+            if (Preferences.getPassword(this).isEmpty()) {
                 if (passwordText.getText().toString().equals(repeatPassword.getText().toString())) {
                     try {
                         Preferences.setPassword(this, HashUtils.getSHA1Hash(passwordText.getText().toString()));
@@ -47,7 +47,6 @@ public class PasswordActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(
-
                             this,
                             R.string.passwords_not_matching,
                             Toast.LENGTH_SHORT)
@@ -55,11 +54,10 @@ public class PasswordActivity extends AppCompatActivity {
                 }
             } else {
                 try {
-                    if (HashUtils.getSHA1Hash(passwordText.getText().toString()).equals(Preferences.getPasswordHash(this))) {
+                    if (HashUtils.getSHA1Hash(passwordText.getText().toString()).equals(Preferences.getPassword(this))) {
                         startApp();
                     } else {
                         Toast.makeText(
-
                                 this,
                                 R.string.wrong_password,
                                 Toast.LENGTH_SHORT)

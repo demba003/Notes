@@ -16,4 +16,5 @@
     <string name="enable_notification">Włącz powiadomienie</string>
     <string name="last_edit_time">Data ostatniej edycji</string>
     <string name="note_reminder">Przypomnienie o notatce</string>
+    <string name="delete">Usuń</string>
 </resources>

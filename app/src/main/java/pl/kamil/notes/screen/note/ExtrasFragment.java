@@ -16,21 +16,16 @@ import java.util.Calendar;
 
 import pl.kamil.notes.R;
 import pl.kamil.notes.db.NoteEntity;
-import pl.kamil.notes.utils.DateUtlis;
+import pl.kamil.notes.utils.DateUtils;
 
 public class ExtrasFragment extends Fragment {
 
-    EditText notificationTime;
-    EditText editDate;
-    Switch notificationsEnabled;
-    NoteEntity note;
+    private EditText notificationTime;
+    private EditText editDate;
+    private Switch notificationsEnabled;
+    private NoteEntity note;
 
     public ExtrasFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -49,13 +44,13 @@ public class ExtrasFragment extends Fragment {
 
 
         if (note.getUpdateTimestamp() != 0) {
-            editDate.setText(DateUtlis.getFormattedDate(note.getUpdateTimestamp()));
+            editDate.setText(DateUtils.getFormattedDate(note.getUpdateTimestamp()));
         } else {
-            editDate.setText(DateUtlis.getFormattedDate(System.currentTimeMillis()));
+            editDate.setText(DateUtils.getFormattedDate(System.currentTimeMillis()));
         }
 
         if (note.getNotificationTimestamp() != 0) {
-            notificationTime.setText(DateUtlis.getFormattedDate(note.getNotificationTimestamp()));
+            notificationTime.setText(DateUtils.getFormattedDate(note.getNotificationTimestamp()));
         }
         notificationTime.setEnabled(note.isNotificationEnabled());
         notificationTime.requestFocus();
@@ -85,7 +80,7 @@ public class ExtrasFragment extends Fragment {
         cal.set(Calendar.MINUTE, minute);
         long timestamp = cal.getTimeInMillis();
         note.setNotificationTimestamp(timestamp);
-        notificationTime.setText(DateUtlis.getFormattedDate(timestamp));
+        notificationTime.setText(DateUtils.getFormattedDate(timestamp));
         if(note.isNotificationEnabled()) {
             NotificationService.scheduleNotification(getContext(), note);
         }

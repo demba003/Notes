@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +16,10 @@ import pl.kamil.notes.db.NoteEntity;
 
 public class NoteActivity extends AppCompatActivity {
 
-    NoteEntity note = new NoteEntity();
-    NoteEntity original = new NoteEntity();
-    BroadcastReceiver receiver;
-;
+    private NoteEntity note = new NoteEntity();
+    private NoteEntity original = new NoteEntity();
+    private BroadcastReceiver receiver;
+
     NoteEntity getNote() {
         return note;
     }
@@ -32,7 +31,7 @@ public class NoteActivity extends AppCompatActivity {
         setTitle(R.string.create_your_note);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         NoteEntity openedNote = (NoteEntity) getIntent().getSerializableExtra("NOTE_ENTITY");
         if (openedNote != null) {
@@ -50,7 +49,7 @@ public class NoteActivity extends AppCompatActivity {
         registerReceiver(receiver, new IntentFilter(Intent.ACTION_SHUTDOWN));
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = item -> {
         switch (item.getItemId()) {
             case R.id.navigation_home:

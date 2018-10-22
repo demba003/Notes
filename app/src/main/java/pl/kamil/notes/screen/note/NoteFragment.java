@@ -15,15 +15,10 @@ import pl.kamil.notes.utils.SimpleTextWatcher;
 
 public class NoteFragment extends Fragment {
 
-    EditText noteData;
-    NoteEntity note;
+    private EditText noteData;
+    private NoteEntity note;
 
     public NoteFragment() {}
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

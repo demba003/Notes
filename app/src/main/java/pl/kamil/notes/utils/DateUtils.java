@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateUtlis {
+public class DateUtils {
     public static String getFormattedDate(long timestamp) {
         Date date = new Date(timestamp);
         String pattern = "MM.dd.yyyy HH:mm";

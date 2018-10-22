@@ -7,7 +7,7 @@
     <string name="enter_password">Enter your password</string>
     <string name="title_edit">Write a note</string>
     <string name="title_more">Additional information</string>
-    <string name="passwords_not_matching">Passwords doesn\'t match</string>
+    <string name="passwords_not_matching">Passwords don\'t match</string>
     <string name="wrong_password">Wrong password</string>
     <string name="edit_your_note">Edit your note</string>
     <string name="create_your_note">Create a note</string>
@@ -15,5 +15,5 @@
     <string name="enable_notification">Enable notification</string>
     <string name="last_edit_time">Last edit time</string>
     <string name="note_reminder">Note reminder</string>
-
+    <string name="delete">Delete</string>
 </resources>

@@ -6,14 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.List;
-import java.util.concurrent.Callable;
-
-import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import pl.kamil.notes.R;
 import pl.kamil.notes.db.AppDatabase;
@@ -21,7 +15,7 @@ import pl.kamil.notes.db.NoteEntity;
 import pl.kamil.notes.screen.note.NoteActivity;
 
 public class ListActivity extends AppCompatActivity {
-    RecyclerView recycler;
+    private RecyclerView recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +45,7 @@ public class ListActivity extends AppCompatActivity {
                 .subscribe();
     }
 
-    void onCardClick(NoteEntity entity) {
+    private void onCardClick(NoteEntity entity) {
         Intent intent = new Intent(this, NoteActivity.class);
         intent.putExtra("NOTE_ENTITY", entity);
         startActivity(intent);

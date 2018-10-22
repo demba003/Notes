@@ -8,9 +8,9 @@ import android.widget.TextView;
 import pl.kamil.notes.R;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder{
-    TextView date;
-    TextView content;
-    CardView card;
+    final TextView date;
+    final TextView content;
+    final CardView card;
 
     NoteViewHolder(View itemView) {
         super(itemView);
